@@ -16,5 +16,16 @@ pipeline {
                 sh 'mvn -DskipTests=false test'
             }
         }
+        stage('DockerPush') {
+            steps {
+                sh 'docker build --tag=hello-world-app:latest --rm=true .'
+//                 Push to Docker registry here
+            }
+        }
+        stage('KubeDeploy') {
+            steps {
+//             Deploy to Kube
+          }
+        }
     }
 }

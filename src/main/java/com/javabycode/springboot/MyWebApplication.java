@@ -2,18 +2,13 @@ package com.javabycode.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
+import org.springframework.context.annotation.ComponentScan;
 
 
 @SpringBootApplication
-public class MyWebApplication extends SpringBootServletInitializer{
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MyWebApplication.class);
-    }
-
-    public static void main(String[] args) throws Exception {
+@ComponentScan(basePackages = {"com.javabycode.springboot"})
+public class MyWebApplication {
+    public static void main(String[] args) {
         SpringApplication.run(MyWebApplication.class, args);
     }
 }

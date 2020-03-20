@@ -22,10 +22,10 @@ pipeline {
 //                 Push to Docker registry here
             }
         }
-        stage('KubeDeploy') {
-            steps {
-//             Deploy to Kube
-          }
-        }
+//         stage('KubeDeploy') {
+//             steps {
+// //             Deploy to Kube
+//           }
+//         }
     }
 }

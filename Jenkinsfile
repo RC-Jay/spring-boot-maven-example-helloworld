@@ -19,10 +19,19 @@ pipeline {
             }
         }
         stage('DockerPush') {
-        agent none
+            agent {
+                // Equivalent to "docker build -f Dockerfile .
+                dockerfile {
+                    filename 'Dockerfile'
+                    dir '.'
+                    label 'DockerPushLabel'
+                    additionalBuildArgs  '--tag=hello-world-app:latest --rm=true'
+                    args '-v /tmp:/tmp'
+                }
+            }
             steps {
-                echo 'Starting to build docker image'
-                sh 'docker build --tag=hello-world-app:latest --rm=true .'
+                echo 'Built docker image'
+//                 sh 'docker build --tag=hello-world-app:latest --rm=true .'
             }
         }
 //         stage('KubeDeploy') {

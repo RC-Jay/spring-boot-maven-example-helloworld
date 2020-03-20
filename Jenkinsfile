@@ -24,7 +24,6 @@ pipeline {
                 dockerfile {
                     filename 'Dockerfile'
                     dir '.'
-                    label 'DockerPushLabel'
                     additionalBuildArgs  '--tag=hello-world-app:latest --rm=true'
                     args '-v /tmp:/tmp'
                 }

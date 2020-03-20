@@ -20,11 +20,9 @@ pipeline {
         }
         stage('DockerPush') {
             steps {
+                agent any
                 echo 'Starting to build docker image'
-                script {
-                    def dockerImage = docker.build("ReleaseImage:${env.BUILD_ID}")
-    //                 dockerImage.push()
-                }
+                sh 'docker build --tag=hello-world-app:latest --rm=true .'
             }
         }
 //         stage('KubeDeploy') {

@@ -19,8 +19,8 @@ pipeline {
             }
         }
         stage('DockerPush') {
+        agent none
             steps {
-                agent any
                 echo 'Starting to build docker image'
                 sh 'docker build --tag=hello-world-app:latest --rm=true .'
             }

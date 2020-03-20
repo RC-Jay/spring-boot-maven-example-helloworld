@@ -19,12 +19,12 @@ pipeline {
             }
         }
         stage('DockerPush') {
-            agent {
-                dockerfile true
-            }
+//             agent {
+//                 dockerfile true
+//             }
             steps {
                 echo 'Built docker image'
-//                 sh 'docker build --tag=hello-world-app:latest --rm=true .'
+                sh 'docker build --tag=hello-world-app:latest --rm=true .'
             }
         }
 //         stage('KubeDeploy') {

@@ -1,7 +1,7 @@
 FROM openjdk:8-jdk-alpine
 MAINTAINER EmailHere
 
-RUN mvn clean compile package -DskipTests=false test
+# RUN mvn clean compile package -DskipTests=false test
 COPY target/FinalApp.SNAPSHOT.jar /opt/springBoot/lib/
 
 ENTRYPOINT ["/usr/bin/java"]

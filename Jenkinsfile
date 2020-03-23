@@ -1,5 +1,6 @@
 pipeline {
     agent {
+        // Equivalent to docker build --tag=hello-world-app:latest --rm=true .'
         dockerfile {
                 filename 'Dockerfile'
                 dir '.'
@@ -11,13 +12,12 @@ pipeline {
         stage('DockerPush') {
             steps {
                 echo 'Built docker image'
-    //                 sh 'docker build --tag=hello-world-app:latest --rm=true .'
             }
         }
-//         stage('KubeDeploy') {
-//             steps {
-//             Deploy to Kube
-//           }
-//         }
+        stage('Test') {
+            steps {
+            sh 'mvn clean compile package -DskipTests=false test'
+          }
+        }
     }
 }

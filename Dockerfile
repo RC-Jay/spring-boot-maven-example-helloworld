@@ -20,9 +20,9 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 # install maven dependency packages (keep in image)
 COPY pom.xml /usr/src/app
-RUN mvn clean compile package -DskipTests=false test
-# copy other source files (keep in image)
 COPY src /usr/src/app/src
+RUN mvn clean compile package
+# copy other source files (keep in image)
 COPY target/FinalApp.SNAPSHOT.jar /opt/springBoot/lib/
 
 ENTRYPOINT ["/usr/bin/java"]

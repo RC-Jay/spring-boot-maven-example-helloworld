@@ -5,6 +5,9 @@ pipeline {
 //             args '-v /root/.m2:/root/.m2'
 //         }
 //     }
+    agent {
+                dockerfile true
+            }
     stages {
 //         stage('Build') {
 //             steps {
@@ -19,9 +22,6 @@ pipeline {
 //             }
 //         }
         stage('DockerPush') {
-            agent {
-                dockerfile true
-            }
             steps {
                 echo 'Built docker image'
 //                 sh 'docker build --tag=hello-world-app:latest --rm=true .'

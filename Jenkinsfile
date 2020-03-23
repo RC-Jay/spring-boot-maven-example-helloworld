@@ -31,7 +31,7 @@ pipeline {
         }
 
         stage('DockerPush') {
-            agent none
+            agent any
             steps {
                 echo 'Pushing Docker Image to registry'
                 sh 'docker ps'

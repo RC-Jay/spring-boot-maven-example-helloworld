@@ -10,7 +10,7 @@ pipeline {
                         filename 'Dockerfile'
                         dir '.'
                         additionalBuildArgs  '--tag=hello-world-app:latest --rm=true'
-                        args '-v /tmp:/tmp'
+                        args '-v /root/.m2:/root/.m2'
                     }
             }
             steps {

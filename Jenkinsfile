@@ -19,9 +19,13 @@ pipeline {
             }
         }
         stage('DockerPush') {
-//             agent {
-//                 dockerfile true
-//             }
+            agent {
+                // Equivalent to "docker build -f Dockerfile --tag=hello-world-app:latest --rm=true .
+                dockerfile {
+                    filename 'Dockerfile'
+                    args '--tag=hello-world-app:latest --rm=true'
+                }
+            }
             steps {
                 echo 'Built docker image'
                 sh 'docker build --tag=hello-world-app:latest --rm=true .'

@@ -7,7 +7,7 @@ pipeline {
                 dockerfile {
                         filename 'Dockerfile'
                         dir '.'
-                        additionalBuildArgs  '--no-cache --tag=hello-world-app:latest --rm=true'
+                        additionalBuildArgs  '--tag=hello-world-app:latest --rm=true'
                         args '-v /tmp:/tmp'
                     }
             }

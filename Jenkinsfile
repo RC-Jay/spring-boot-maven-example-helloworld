@@ -9,24 +9,24 @@ pipeline {
     //                 sh 'docker build --tag=hello-world-app:latest --rm=true .'
             }
         }
-         agent {
+//         stage('Build') {
+//                     steps {
+//                     echo 'Starting Build'
+//                         sh 'mvn clean compile package'
+//                     }
+//                 }
+        stage('Test') {
+        agent {
                 docker {
                     image 'maven:3-alpine'
                     args '-v /root/.m2:/root/.m2'
                 }
             }
-            stage('Build') {
-                        steps {
-                        echo 'Starting Build'
-                            sh 'mvn clean compile package'
-                        }
-                    }
-            stage('Test') {
-                steps {
-                    echo 'Running Unit Tests'
-                    sh 'mvn -DskipTests=false test'
-                }
+            steps {
+                echo 'Running Unit Tests'
+                sh 'mvn -DskipTests=false test'
             }
+        }
 //         stage('KubeDeploy') {
 //             steps {
 //             Deploy to Kube

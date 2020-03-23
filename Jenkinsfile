@@ -1,9 +1,21 @@
 pipeline {
-    agent none
 
     stages {
-
-        stage('Build') {
+        stage('DockerPush') {
+            agent {
+                // Equivalent to docker build --tag=hello-world-app:latest --rm=true .'
+                dockerfile {
+                        filename 'Dockerfile'
+                        dir '.'
+                        additionalBuildArgs  '--no-cache --tag=hello-world-app:latest --rm=true'
+                        args '-v /tmp:/tmp'
+                    }
+            }
+            steps {
+                echo 'Built docker image'
+            }
+        }
+        stage('Test') {
             agent {
                 docker {
                         image 'maven:3-alpine'
@@ -13,21 +25,5 @@ pipeline {
                 sh 'mvn clean compile package -DskipTests=false test'
           }
         }
-
-        stage('Build') {
-            agent {
-                // Equivalent to docker build --tag=hello-world-app:latest --rm=true .'
-                dockerfile {
-                        filename 'Dockerfile'
-                        dir '.'
-                        additionalBuildArgs  '--tag=hello-world-app:latest --rm=true'
-                        args '-v /tmp:/tmp'
-                    }
-            }
-            steps {
-                echo 'Built docker image'
-            }
-        }
     }
-}
 }

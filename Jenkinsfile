@@ -1,17 +1,16 @@
 pipeline {
     agent none
-
     stages {
 
         stage('BuildnTest') {
-                    agent {
-                        docker 'maven:3-alpine'
-                        args '-v /root/.m2:/root/.m2'
-                     }
-                    steps {
-                        sh 'mvn clean compile package -DskipTests=false test'
-                  }
-                }
+            agent {
+                docker 'maven:3-alpine'
+                args '-v /root/.m2:/root/.m2'
+             }
+            steps {
+                sh 'mvn clean compile package -DskipTests=false test'
+            }
+         }
 
         stage('DockerPush') {
             agent {

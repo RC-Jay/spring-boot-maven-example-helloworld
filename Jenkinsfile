@@ -21,9 +21,10 @@ pipeline {
                         image 'maven:3-alpine'
                         args '-v /root/.m2:/root/.m2'
                     }
+                 }
             steps {
                 sh 'mvn clean compile package -DskipTests=false test'
-          }
+            }
         }
     }
 }

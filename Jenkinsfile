@@ -15,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('DockerPush') {
+        stage('DockerBuild') {
             agent {
                 // Equivalent to docker build --tag=hello-world-app:latest --rm=true .'
                 dockerfile {

@@ -1,40 +1,37 @@
 pipeline {
-    agent none
+    agent any
 
     stages {
 
-        stage('Test') {
-            agent {
-                docker {
-                        image 'maven:3-alpine'
-                        args '-v /root/.m2:/root/.m2'
-                    }
-                 }
+        stage('Build') {
             steps {
-                sh 'mvn clean compile package -DskipTests=false test'
+                sh 'mvn clean compile package'
             }
         }
 
-        stage('DockerBuild') {
-            agent {
-                // Equivalent to docker build --tag=hello-world-app:latest --rm=true .'
-                dockerfile {
-                        filename 'Dockerfile'
-                        dir '.'
-                        additionalBuildArgs  '--tag=hello-world-app:latest --rm=true'
-                        args '-v /tmp:/tmp'
-                    }
-            }
+        stage('Test') {
             steps {
-                echo 'Built docker image'
+                sh 'mvn -DskipTests=false test'
             }
         }
 
         stage('DockerPush') {
-            agent any
+            steps {
+
+                sh 'aws ecr get-login-password --region ap-south-1 | docker login --username AWS --password-stdin 382026030681.dkr.ecr.ap-south-1.amazonaws.com/hello_world_repo'
+
+                sh 'docker build --tag=hello-world-app:latest --rm=true .'
+                echo 'Built docker image'
+                sh 'docker tag hello-world-app:latest 382026030681.dkr.ecr.ap-south-1.amazonaws.com/hello_world_app:latest'
+                sh 'docker push 382026030681.dkr.ecr.ap-south-1.amazonaws.com/hello_world_app:latest'
+                echo 'Pushed to Registry'
+            }
+        }
+
+        stage('DockerPush') {
             steps {
                 echo 'Pushing Docker Image to registry'
-                sh 'docker ps'
+                sh 'docker image ls'
             }
         }
     }

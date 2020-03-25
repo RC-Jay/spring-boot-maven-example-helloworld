@@ -18,7 +18,7 @@ pipeline {
         stage('DockerBuild') {
             steps {
 
-                sh 'aws ecr get-login --region ap-south-1 | docker login --username AWS --password-stdin 382026030681.dkr.ecr.ap-south-1.amazonaws.com/hello_world_repo'
+//                 sh 'aws ecr get-login --region ap-south-1 | docker login --username AWS --password-stdin 382026030681.dkr.ecr.ap-south-1.amazonaws.com/hello_world_repo'
 
                 sh 'docker build --tag=hello-world-app:latest --rm=true .'
                 echo 'Built docker image'
